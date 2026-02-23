@@ -1,4 +1,5 @@
-
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 public class PalindroneCheckerApp {
     public static void main(String[] args){
@@ -7,19 +8,22 @@ public class PalindroneCheckerApp {
         System.out.println(" Version : 1.0");
         System.out.println("==================================");
 
-        String word = "madam";
+        String word = "level";
+
+        Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
-        // push characters into stack
+        // enqueue and push characters
         for (int i = 0; i < word.length(); i++) {
+            queue.add(word.charAt(i));
             stack.push(word.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // pop and compare
-        for (int i = 0; i < word.length(); i++) {
-            if (word.charAt(i) != stack.pop()) {
+        // compare dequeue (FIFO) with pop (LIFO)
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
                 break;
             }
