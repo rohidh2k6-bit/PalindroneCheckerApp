@@ -8,15 +8,19 @@ public class PalindroneCheckerApp {
         String reverse = "";
 
         // reverse the string
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reverse = reverse + word.charAt(i);
+        String original = "level";
+        String reversed = "";
+
+        // reverse the string using for loop
+        for (int i = original.length() - 1; i >= 0; i--) {
+            reversed = reversed + original.charAt(i);
         }
 
-        // check palindrome
-        if (word.equals(reverse)) {
-            System.out.println(word + " is a Palindrome");
+        // compare original and reversed string
+        if (original.equals(reversed)) {
+            System.out.println(original + " is a Palindrome");
         } else {
-            System.out.println(word + " is NOT a Palindrome");
+            System.out.println(original + " is NOT a Palindrome");
         }
     }
 }
