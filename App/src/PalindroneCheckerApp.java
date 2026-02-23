@@ -1,6 +1,5 @@
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
 public class PalindroneCheckerApp {
     public static void main(String[] args){
         System.out.println("==================================");
@@ -8,22 +7,20 @@ public class PalindroneCheckerApp {
         System.out.println(" Version : 1.0");
         System.out.println("==================================");
 
-        String word = "level";
+        String word = "refer";
 
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new LinkedList<>();
 
-        // enqueue and push characters
+        // insert characters into deque
         for (int i = 0; i < word.length(); i++) {
-            queue.add(word.charAt(i));
-            stack.push(word.charAt(i));
+            deque.addLast(word.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // compare dequeue (FIFO) with pop (LIFO)
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        // compare front and rear characters
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
