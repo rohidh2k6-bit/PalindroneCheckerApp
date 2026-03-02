@@ -1,30 +1,6 @@
-interface PalindroneStrategy {
-    boolean check(String input);
-}
+public class PalindroneCheckerApp {
 
-class StackStrategy implements PalindroneStrategy {
-
-    public boolean check(String input) {
-
-        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-        char[] stack = new char[cleaned.length()];
-        int top = -1;
-
-        for (int i = 0; i < cleaned.length(); i++) {
-            stack[++top] = cleaned.charAt(i);
-        }
-
-        for (int i = 0; i < cleaned.length(); i++) {
-            if (cleaned.charAt(i) != stack[top--])
-                return false;
-        }
-        return true;
-    }
-}
-
-class DequeStrategy implements PalindroneStrategy {
-
-    public boolean check(String input) {
+    static boolean iterativeCheck(String input) {
 
         String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
         int left = 0;
@@ -38,30 +14,54 @@ class DequeStrategy implements PalindroneStrategy {
         }
         return true;
     }
-}
 
-public class PalindroneCheckerApp {
+    static boolean recursiveCheck(String input, int start, int end) {
 
-    private PalindroneStrategy strategy;
+        if (start >= end)
+            return true;
 
-    public PalindroneCheckerApp(PalindroneStrategy strategy) {
-        this.strategy = strategy;
+        if (input.charAt(start) != input.charAt(end))
+            return false;
+
+        return recursiveCheck(input, start + 1, end - 1);
     }
 
-    public boolean checkPalindrone(String input) {
-        return strategy.check(input);
+    static boolean stackCheck(String input) {
+
+        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        char[] stack = new char[cleaned.length()];
+        int top = -1;
+
+        for (int i = 0; i < cleaned.length(); i++)
+            stack[++top] = cleaned.charAt(i);
+
+        for (int i = 0; i < cleaned.length(); i++) {
+            if (cleaned.charAt(i) != stack[top--])
+                return false;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
 
-        PalindroneStrategy strategy = new StackStrategy();
-        PalindroneCheckerApp app = new PalindroneCheckerApp(strategy);
-
         String input = "Able was I ere I saw Elba";
+        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        if (app.checkPalindrone(input))
-            System.out.println("Palindrone");
-        else
-            System.out.println("Not a Palindrone");
+        long startTime, endTime;
+
+        startTime = System.nanoTime();
+        iterativeCheck(input);
+        endTime = System.nanoTime();
+        System.out.println("Iterative Time: " + (endTime - startTime) + " ns");
+
+        startTime = System.nanoTime();
+        recursiveCheck(cleaned, 0, cleaned.length() - 1);
+        endTime = System.nanoTime();
+        System.out.println("Recursive Time: " + (endTime - startTime) + " ns");
+
+        startTime = System.nanoTime();
+        stackCheck(input);
+        endTime = System.nanoTime();
+        System.out.println("Stack Time: " + (endTime - startTime) + " ns");
     }
 }
