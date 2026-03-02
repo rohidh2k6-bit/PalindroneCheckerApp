@@ -1,21 +1,26 @@
 public class PalindroneCheckerApp {
 
-    static boolean isPalindrome(String str, int start, int end) {
+    static boolean isPalindrome(String input) {
 
-        if (start >= end)
-            return true;
+        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        if (str.charAt(start) != str.charAt(end))
-            return false;
+        int left = 0;
+        int right = cleaned.length() - 1;
 
-        return isPalindrome(str, start + 1, end - 1);
+        while (left < right) {
+            if (cleaned.charAt(left) != cleaned.charAt(right))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
 
-        String input = "level";
+        String input = "Was it a Rat I Saw";
 
-        if (isPalindrome(input, 0, input.length() - 1))
+        if (isPalindrome(input))
             System.out.println("Palindrome");
         else
             System.out.println("Not a Palindrome");
