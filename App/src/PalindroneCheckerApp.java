@@ -1,6 +1,6 @@
-public class PalindroneCheckerApp {
+class PalindroneChecker {
 
-    static boolean isPalindrome(String input) {
+    public boolean checkPalindrone(String input) {
 
         String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
@@ -15,14 +15,19 @@ public class PalindroneCheckerApp {
         }
         return true;
     }
+}
+
+public class PalindroneCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "Was it a Rat I Saw";
+        PalindroneChecker service = new PalindroneChecker();
 
-        if (isPalindrome(input))
-            System.out.println("Palindrome");
+        String input = "Never Odd Or Even";
+
+        if (service.checkPalindrone(input))
+            System.out.println("Palindrone");
         else
-            System.out.println("Not a Palindrome");
+            System.out.println("Not a Palindrone");
     }
 }
